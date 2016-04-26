@@ -13,6 +13,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import cc.isotopestudio.Experienced.utli.BottleUtli;
 import cc.isotopestudio.Experienced.utli.S;
+import cc.isotopestudio.Experienced.utli.SetExpFix;
 
 public class CommandExpStore implements CommandExecutor {
 	@Override
@@ -32,7 +33,7 @@ public class CommandExpStore implements CommandExecutor {
 				player.sendMessage(S.toPrefixRed("你只能拿着一个玻璃瓶"));
 				return true;
 			}
-			int exp = player.getTotalExperience();
+			long exp = SetExpFix.getExp(player);
 			if (exp <= 0) {
 				player.sendMessage(S.toPrefixRed("你没有经验"));
 				return true;
@@ -41,14 +42,16 @@ public class CommandExpStore implements CommandExecutor {
 			ItemMeta meta = item.getItemMeta();
 			meta.setDisplayName(BottleUtli.itemName);
 			List<String> lore = new ArrayList<String>();
-			lore.add(S.toBoldDarkGreen(exp + " 点经验"));
-			lore.add(S.toYellow("输入 /expget 即可吸收经验"));
+			lore.add("§e作用:§a使用后可以增加经验");
+			lore.add("§e用法:§a/expshiyong");
+			lore.add("§e说明:");
+			lore.add("§e-§a当前储存经验: " + exp);
+			lore.add("§e-§a(可以从1级升到 " + player.getLevel() + " 级)");
+			lore.add("§e-§c一次性道具！请勿右键！");
 			meta.setLore(lore);
 			item.setItemMeta(meta);
 			player.setItemInHand(item);
-			player.setExp(0);
-			player.setLevel(0);
-			player.setTotalExperience(0);
+			SetExpFix.setTotalExperience(player, 0);
 			player.sendMessage(S.toPrefixGreen("成功储存 " + exp + " 点经验"));
 			return true;
 		}

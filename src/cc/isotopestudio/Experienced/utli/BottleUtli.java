@@ -17,8 +17,8 @@ public class BottleUtli {
 				return -1;
 			}
 			for (String lore : meta.getLore()) {
-				if (lore.contains("点经验")) {
-					return Integer.parseInt(lore.substring(4, lore.indexOf(" ")));
+				if (lore.contains("当前储存经验: ")) {
+					return Integer.parseInt(lore.substring(lore.indexOf(" ") + 1, lore.length()));
 				}
 			}
 		} catch (Exception e) {

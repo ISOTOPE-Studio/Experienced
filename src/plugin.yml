@@ -4,7 +4,7 @@ main: cc.isotopestudio.Experienced.Experienced
 author: Mars
 description: Experienced
 website: http://isotopestudio.cc
-version: 1.0.2
+version: 1.0.3
 commands:
   expstore:
     description: Experienced command
